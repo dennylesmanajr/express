@@ -4,6 +4,7 @@ import invoiceRoutes from './server/routes/InvoiceRoutes';
 import itemRoutes from './server/routes/ItemRoutes';
 import customerRoutes from './server/routes/CustomerRoutes';
 import invoiceDetailRoutes from './server/routes/InvoiceDetailRoutes';
+import userRoutes from './server/routes/UserRoutes';
 
 
 const app = express();
@@ -16,6 +17,7 @@ app.use('/api/v1/invoice', invoiceRoutes);
 app.use('/api/v1/item', itemRoutes);
 app.use('/api/v1/customer', customerRoutes);
 app.use('/api/v1/invoicedetail', invoiceDetailRoutes);
+app.use('/api/v1/user', userRoutes);
 
 
 // when a random route is inputed
