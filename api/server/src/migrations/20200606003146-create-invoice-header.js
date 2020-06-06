@@ -9,10 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       invoice_number: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       invoice_date: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
+        allowNull: false,
       },
       total_amount: {
         type: Sequelize.DECIMAL(10,2),

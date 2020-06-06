@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import invoiceRoutes from './server/routes/InvoiceRoutes';
+import itemRoutes from './server/routes/ItemRoutes';
 
 
 const app = express();
@@ -10,6 +11,7 @@ const port = process.env.PORT || 8000;
 
 
 app.use('/api/v1/invoice', invoiceRoutes);
+app.use('/api/v1/item', itemRoutes);
 
 
 // when a random route is inputed
