@@ -20,7 +20,7 @@ class InvoiceHeaderController {
   }
 
   static async addInvoiceHeader(req, res) {
-    if (!req.body.invoice_number || !req.body.invoice_date) {
+    if (!req.body.invoice_number || !req.body.invoice_date, !req.body.customer_id) {
       util.setError(400, 'Please provide complete details');
       return util.send(res);
     }
@@ -30,6 +30,7 @@ class InvoiceHeaderController {
       util.setSuccess(201, 'InvoiceHeader Added!', createdInvoiceHeader);
       return util.send(res);
     } catch (error) {
+      console.log('error: ', error);
       util.setError(400, error.message);
       return util.send(res);
     }

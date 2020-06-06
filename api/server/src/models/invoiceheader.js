@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   InvoiceHeader.associate = function(models) {
     // associations can be defined here
+    InvoiceHeader.belongsTo(models.Customer, {
+      foreignKey: 'customer_id',
+      onDelete: "CASCADE",
+    });
   };
   return InvoiceHeader;
 };

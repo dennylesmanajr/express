@@ -14,6 +14,7 @@ class InvoiceService {
     try {
       return await database.InvoiceHeader.create(newInvoice);
     } catch (error) {
+      console.log('error: ', error);
       throw error;
     }
   }
