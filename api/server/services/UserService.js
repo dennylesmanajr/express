@@ -37,15 +37,15 @@ class UserService {
   }
 
   static async getAUser(id) {
-    console.log("id: ", id);
+    // console.log("getAUser > id: ", id);
     try {
       const theUser = await database.User.findOne({
         where: { id: Number(id) },
       });
-      console.log("theUser: ", theUser);
+      // console.log("theUser: ", theUser);
       return theUser;
     } catch (error) {
-      console.log("error: ", error);
+      // console.log("error: ", error);
       throw error;
     }
   }
@@ -67,6 +67,34 @@ class UserService {
       throw error;
     }
   }
+
+  static async getAUserByEmail(email, password) {
+    console.log("getAUser > email: ", email);
+    try {
+      // const theUser = await database.User.findOne({
+      //   where: { email },
+      // })
+      const theUser = database.User.findOne({ where: { email: email } }).then(async function (user) {
+        // console.log('user: ', user);
+        // console.log('!await user.validPassword(password): ', !await user.validPassword(password));
+          if (!user) {
+            throw 'User Not found.';
+          } else if (!await user.validPassword(password)) {
+              throw 'Invalid Password!';
+          }
+          return user;
+      });
+
+      // const valid = await database.User.validPassword(password);
+      // console.log('valid: ', valid);
+      
+      return theUser;
+    } catch (error) {
+      console.log("error: ", error);
+      throw error;
+    }
+  }
+
 }
 
 export default UserService;

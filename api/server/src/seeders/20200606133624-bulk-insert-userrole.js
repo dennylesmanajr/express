@@ -12,11 +12,10 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-
-   return queryInterface.bulkInsert('Roles', [
-      { role_code: 'LEAD' ,role_name: 'lead',createdAt: new Date(), updatedAt: new Date() },
-      { role_code: 'DIRECTOR', role_name: 'director',createdAt: new Date(), updatedAt: new Date() },
-      { role_code: 'STAFF', role_name: 'staff',createdAt: new Date(), updatedAt: new Date() },
+   return queryInterface.bulkInsert('UserRoles', [
+      { role_id: 1 ,user_id: 1,createdAt: new Date(), updatedAt: new Date() },
+      { role_id: 2, user_id: 2,createdAt: new Date(), updatedAt: new Date() },
+      { role_id: 3, user_id: 3,createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 
@@ -28,6 +27,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-   return queryInterface.bulkDelete('Roles', null, {});
+   return queryInterface.bulkDelete('UserRoles', null, {});
   }
 };

@@ -58,7 +58,7 @@ class CustomerController {
 
   static async getACustomer(req, res) {
     const { id } = req.params;
-    console.log('id > ',id);
+    // console.log('id > ',id);
 
     if (!Number(id)) {
       util.setError(400, 'Please input a valid numeric value');
@@ -67,7 +67,7 @@ class CustomerController {
 
     try {
       const theCustomer = await CustomerService.getACustomer(id);
-      console.log('theCustomer: ', theCustomer);
+      // console.log('theCustomer: ', theCustomer);
 
       if (!theCustomer) {
         util.setError(404, `Cannot find Customer with the id ${id}`);
