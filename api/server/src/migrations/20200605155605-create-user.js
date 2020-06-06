@@ -20,15 +20,6 @@ module.exports = {
       full_name: {
         type: Sequelize.STRING
       },
-      role_id:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Roles", // name of Target model
-          key: "id", // key in Target model that we're referencing
-        },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
