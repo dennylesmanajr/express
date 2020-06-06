@@ -6,6 +6,17 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   InvoiceDetail.associate = function(models) {
     // associations can be defined here
+    InvoiceDetail.belongsTo(models.Item, {
+      foreignKey: 'item_ref_id',
+      onDelete: "CASCADE",
+      allowNull: false,
+    });
+
+    InvoiceDetail.belongsTo(models.InvoiceHeader, {
+      foreignKey: 'invoice_id',
+      onDelete: "CASCADE",
+      allowNull: false,
+    });
   };
   return InvoiceDetail;
 };

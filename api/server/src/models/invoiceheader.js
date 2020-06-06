@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     InvoiceHeader.belongsTo(models.Customer, {
       foreignKey: 'customer_id',
       onDelete: "CASCADE",
+      allowNull: false,
     });
   };
   return InvoiceHeader;

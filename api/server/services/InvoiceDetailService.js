@@ -1,23 +1,23 @@
 import database from "../src/models";
-import InvoiceHeader from "../src/models/invoiceheader";
+import InvoiceDetail from "../src/models/invoiceDetail";
 
-class InvoiceService {
-  static async getAllInvoiceHeaders() {
+class InvoiceDetailService {
+  static async getAllInvoiceDetail() {
     try {
-      return await database.InvoiceHeader.findAll({
+      return await database.InvoiceDetail.findAll({
         include: [{
-          model: database.Customer,
-          attributes: ['customer_name'],
-        }],
+          model: database.Item,
+          attributes: ['item_name','unit_price'],
+        },],
       });
     } catch (error) {
       throw error;
     }
   }
 
-  static async addInvoiceHeader(newInvoice) {
+  static async addInvoiceDetail(newInvoice) {
     try {
-      return await database.InvoiceHeader.create(newInvoice);
+      return await database.InvoiceDetail.create(newInvoice);
     } catch (error) {
       console.log('error: ', error);
       throw error;
@@ -26,12 +26,12 @@ class InvoiceService {
 
   static async updateInvoice(id, updateInvoice) {
     try {
-      const InvoiceToUpdate = await database.InvoiceHeader.findOne({
+      const InvoiceToUpdate = await database.InvoiceDetail.findOne({
         where: { id: Number(id) },
       });
 
       if (InvoiceToUpdate) {
-        await database.InvoiceHeader.update(updateInvoice, {
+        await database.InvoiceDetail.update(updateInvoice, {
           where: { id: Number(id) },
         });
 
@@ -46,15 +46,9 @@ class InvoiceService {
   static async getAInvoice(id) {
     console.log("id: ", id);
     try {
-      const theInvoice = await database.InvoiceHeader.findOne(
-      {
+      const theInvoice = await database.InvoiceDetail.findOne({
         where: { id: Number(id) },
-        include: [{
-          model: database.Customer,
-          attributes: ['customer_name','customer_address','customer_phone'],
-        }],
-      }
-      );
+      });
       console.log("theInvoice: ", theInvoice);
       return theInvoice;
     } catch (error) {
@@ -65,12 +59,12 @@ class InvoiceService {
 
   static async deleteInvoice(id) {
     try {
-      const InvoiceToDelete = await database.InvoiceHeader.findOne({
+      const InvoiceToDelete = await database.InvoiceDetail.findOne({
         where: { id: Number(id) },
       });
 
       if (InvoiceToDelete) {
-        const deletedInvoice = await database.InvoiceHeader.destroy({
+        const deletedInvoice = await database.InvoiceDetail.destroy({
           where: { id: Number(id) },
         });
         return deletedInvoice;
@@ -82,4 +76,4 @@ class InvoiceService {
   }
 }
 
-export default InvoiceService;
+export default InvoiceDetailService;
