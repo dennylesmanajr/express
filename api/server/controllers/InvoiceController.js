@@ -19,6 +19,26 @@ class InvoiceHeaderController {
     }
   }
 
+
+  static async getAllInvoiceReport(req, res) {
+    
+
+    try {
+      const report = await InvoiceService.getLatestInvoiceHeaders();
+      
+      if (report.length > 0) {
+        util.setSuccess(200, 'InvoiceHeaders retrieved', report);
+      } else {
+        util.setSuccess(200, 'No InvoiceHeader found');
+      }
+      return util.send(res);
+    } catch (error) {
+      
+      util.setError(400, error);
+      return util.send(res);
+    }
+  }
+
   static async addInvoiceHeader(req, res) {
     if (!req.body.invoice_number || !req.body.invoice_date, !req.body.customer_id) {
       util.setError(400, 'Please provide complete details');
@@ -30,7 +50,7 @@ class InvoiceHeaderController {
       util.setSuccess(201, 'InvoiceHeader Added!', createdInvoiceHeader);
       return util.send(res);
     } catch (error) {
-      console.log('error: ', error);
+      
       util.setError(400, error.message);
       return util.send(res);
     }
@@ -59,7 +79,7 @@ class InvoiceHeaderController {
 
   static async getAInvoiceHeader(req, res) {
     const { id } = req.params;
-    console.log('id > ',id);
+    
 
     if (!Number(id)) {
       util.setError(400, 'Please input a valid numeric value');
@@ -68,7 +88,7 @@ class InvoiceHeaderController {
 
     try {
       const theInvoiceHeader = await InvoiceService.getAInvoice(id);
-      console.log('theInvoiceHeader: ', theInvoiceHeader);
+      
 
       if (!theInvoiceHeader) {
         util.setError(404, `Cannot find InvoiceHeader with the id ${id}`);
