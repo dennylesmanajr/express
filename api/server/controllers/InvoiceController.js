@@ -40,7 +40,7 @@ class InvoiceHeaderController {
   }
 
   static async addInvoiceHeader(req, res) {
-    if (!req.body.invoice_number || !req.body.invoice_date, !req.body.customer_id) {
+    if (!req.body.invoice_number || !req.body.invoice_date || !req.body.customer_id) {
       util.setError(400, 'Please provide complete details');
       return util.send(res);
     }
