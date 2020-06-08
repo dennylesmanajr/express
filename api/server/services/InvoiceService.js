@@ -5,12 +5,41 @@ import InvoiceHeader from "../src/models/invoiceheader";
 class InvoiceService {
   static async getAllInvoiceHeaders() {
     try {
-      return await database.InvoiceHeader.findAll({
+      const list =  await database.InvoiceHeader.findAll({
         include: [{
           model: database.Customer,
           attributes: ['customer_name'],
         }],
       });
+
+      for (let i = 0; i < list.length; i++) {
+        const element = list[i];
+        
+
+        if(element && element.dataValues){
+          
+          const totalAmount = await database.InvoiceDetail.findAll({
+            where: { invoice_id: Number(element.dataValues.id)},
+            
+            attributes: [
+              'invoice_id',
+              [sequelize.fn('sum', sequelize.col('amount')), 'total_amount'],
+            ],
+            group: ['invoice_id'],
+          });
+          
+          
+          
+          if(totalAmount[0] && totalAmount[0].dataValues && totalAmount[0].dataValues.total_amount){
+            element.dataValues.total_amount = totalAmount[0].dataValues.total_amount;
+          }
+        }
+        
+        
+      }
+
+
+      return list;
     } catch (error) {
       throw error;
     }
