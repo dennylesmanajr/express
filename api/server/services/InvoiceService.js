@@ -101,6 +101,16 @@ class InvoiceService {
         }],
       }
       );
+
+      // const totalAmount = await database.InvoiceDetail.findAll({
+      //   where: { invoice_id: Number(id)},
+      //   attributes: [
+      //     'invoice_id',
+      //     [sequelize.fn('sum', sequelize.col('amount')), 'total_amount'],
+      //   ],
+      //   group: ['invoice_id'],
+      // });
+      // console.log('totalAmount: ', totalAmount);
       
       return theInvoice;
     } catch (error) {

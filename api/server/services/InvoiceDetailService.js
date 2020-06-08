@@ -2,9 +2,10 @@ import database from "../src/models";
 import InvoiceDetail from "../src/models/invoiceDetail";
 
 class InvoiceDetailService {
-  static async getAllInvoiceDetail() {
+  static async getAllInvoiceDetail(invoice_id) {
     try {
       return await database.InvoiceDetail.findAll({
+        where: { invoice_id: Number(invoice_id) },
         include: [{
           model: database.Item,
           attributes: ['item_name','unit_price'],
@@ -70,6 +71,19 @@ class InvoiceDetailService {
         return deletedInvoice;
       }
       return null;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getAllInvoiceDetailById() {
+    try {
+      return await database.InvoiceDetail.findAll({
+        include: [{
+          model: database.Item,
+          attributes: ['item_name','unit_price'],
+        },],
+      });
     } catch (error) {
       throw error;
     }

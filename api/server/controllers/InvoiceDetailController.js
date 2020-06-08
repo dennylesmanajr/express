@@ -5,8 +5,17 @@ const util = new Util();
 
 class InvoiceDetailController {
   static async getAllInvoiceDetail(req, res) {
+    
+    const { invoice_id } = req.query;
+    
+
+    if (!Number(invoice_id)) {
+      util.setError(400, 'Please input a valid numeric value');
+      return util.send(res);
+    }
+
     try {
-      const allInvoiceDetails = await InvoiceDetailService.getAllInvoiceDetail();
+      const allInvoiceDetails = await InvoiceDetailService.getAllInvoiceDetail(invoice_id);
       if (allInvoiceDetails.length > 0) {
         util.setSuccess(200, 'InvoiceDetails retrieved', allInvoiceDetails);
       } else {
@@ -30,7 +39,7 @@ class InvoiceDetailController {
       util.setSuccess(201, 'InvoiceDetail Added!', createdInvoiceDetail);
       return util.send(res);
     } catch (error) {
-      console.log('error: ', error);
+      
       util.setError(400, error.message);
       return util.send(res);
     }
@@ -59,7 +68,7 @@ class InvoiceDetailController {
 
   static async getAInvoiceDetail(req, res) {
     const { id } = req.params;
-    console.log('id > ',id);
+    
 
     if (!Number(id)) {
       util.setError(400, 'Please input a valid numeric value');
@@ -68,7 +77,7 @@ class InvoiceDetailController {
 
     try {
       const theInvoiceDetail = await InvoiceDetailService.getAInvoice(id);
-      console.log('theInvoiceDetail: ', theInvoiceDetail);
+      
 
       if (!theInvoiceDetail) {
         util.setError(404, `Cannot find InvoiceDetail with the id ${id}`);
