@@ -8,6 +8,7 @@ Several step to run the project:
 - Clone the repo: `git clone https://github.com/dennylesmanajr/express.git`
 - Install Dependencies: `npm install`
 - Config your database connection in : `api\server\src\config\config.js`
+- Run migration to create table: `sequelize db:migrate`
 - Generate Role Data: `sequelize db:seed --seed 20200606081524-bulk-insert-role`
 - Create User with POSTMAN via API (POST) url: `http://localhost:8000/api/v1/user`
 - Sample Parameter 
